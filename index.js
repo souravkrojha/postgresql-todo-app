@@ -92,6 +92,10 @@ app.delete('/todos/:id', async (req, res) => {
     console.log(error.message);
   }
 });
+
+app.use('*', (req, res) => {
+  res.json('not found');
+});
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
 });
