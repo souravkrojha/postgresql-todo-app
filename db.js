@@ -1,4 +1,4 @@
-const { Client } = require('pg');
+const Pool = require('pg').Pool;
 require('dotenv').config();
 
 const devConfig = {
@@ -8,12 +8,12 @@ const devConfig = {
   port: process.env.PG_PORT,
   database: process.env.PG_DATABASE,
 };
-
-const pool = new Client({
+const proConfig = {
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
+};
+
+const pool = new Pool(
+  process.env.NODE_ENV === 'production' ? proConfig : devConfig
+);
 
 module.exports = pool;
