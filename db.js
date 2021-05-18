@@ -1,4 +1,4 @@
-const Pool = require('pg').Pool;
+const { Client } = require('pg');
 require('dotenv').config();
 
 const devConfig = {
@@ -8,13 +8,12 @@ const devConfig = {
   port: process.env.PG_PORT,
   database: process.env.PG_DATABASE,
 };
-const proConfig = {
-  connectionString: process.env.DATABASE_URL,
-};
 
-const pool = new Pool({
-  connectionString:
-    'postgres://ycspvgjnflzaax:de6e3a85386a8a1846ebb89c20707fdf4942fbca69d4d99e76b94dcc4b3a2e63@ec2-3-217-219-146.compute-1.amazonaws.com:5432/d4tdhm3qbk1i4j',
+const pool = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 module.exports = pool;
