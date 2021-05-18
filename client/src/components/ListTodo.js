@@ -5,9 +5,7 @@ const ListTodo = () => {
   const [todos, setTodos] = useState([]);
   const getTodos = async () => {
     try {
-      const response = await (
-        await fetch('http://localhost:5000/todos')
-      ).json();
+      const response = await (await fetch('/todos')).json();
       setTodos(response);
     } catch (error) {
       console.error(error.message);
